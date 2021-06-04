@@ -9,20 +9,20 @@ fi
 
 
 if  [ ! -n "$2" ] ;then
-    echo "you must set PROJECT_NAME"
+    echo "you must set PROJECT_PATH"
     exit 1
 else
-    PROJECT_NAME=$2
+    PROJECT_PATH=$2
 fi
 
-export PATH=${PROJECT_NAME}/bin:$PATH
-export FABRIC_CFG_PATH=${PROJECT_NAME}/config
+export PATH=${PROJECT_PATH}/bin:$PATH
+export FABRIC_CFG_PATH=${PROJECT_PATH}/config
 
 export CORE_PEER_TLS_ENABLED=true
 
 export CORE_PEER_LOCALMSPID="Org1MSP"
-export CORE_PEER_TLS_ROOTCERT_FILE=${PROJECT_NAME}/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=${PROJECT_NAME}/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+export CORE_PEER_TLS_ROOTCERT_FILE=${PROJECT_PATH}/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PROJECT_PATH}/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 
 
@@ -42,25 +42,25 @@ peer channel signconfigtx -f ${CHANNEL_ID}_config_update_in_envelope.pb
 
 
 export CORE_PEER_LOCALMSPID="Org2MSP"
-export CORE_PEER_TLS_ROOTCERT_FILE=${PROJECT_NAME}/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=${PROJECT_NAME}/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+export CORE_PEER_TLS_ROOTCERT_FILE=${PROJECT_PATH}/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PROJECT_PATH}/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
 export CORE_PEER_ADDRESS=peer0.org2.example.com:9051
 
 peer channel signconfigtx -f ${CHANNEL_ID}_config_update_in_envelope.pb
 
 export CORE_PEER_LOCALMSPID="OrdererMSP"
-export CORE_PEER_TLS_CERT_FILE=${PROJECT_NAME}/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.crt
-export CORE_PEER_TLS_KEY_FILE=${PROJECT_NAME}/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.key
-export CORE_PEER_TLS_ROOTCERT_FILE=${PROJECT_NAME}/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
-export CORE_PEER_MSPCONFIGPATH=${PROJECT_NAME}/crypto-config/ordererOrganizations/example.com/users/Admin@example.com/msp
+export CORE_PEER_TLS_CERT_FILE=${PROJECT_PATH}/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.crt
+export CORE_PEER_TLS_KEY_FILE=${PROJECT_PATH}/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.key
+export CORE_PEER_TLS_ROOTCERT_FILE=${PROJECT_PATH}/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PROJECT_PATH}/crypto-config/ordererOrganizations/example.com/users/Admin@example.com/msp
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 
-peer channel update -f ${CHANNEL_ID}_config_update_in_envelope.pb -c ${CHANNEL_ID} -o orderer.example.com:7050 --tls --cafile ${PROJECT_NAME}/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+peer channel update -f ${CHANNEL_ID}_config_update_in_envelope.pb -c ${CHANNEL_ID} -o orderer.example.com:7050 --tls --cafile ${PROJECT_PATH}/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
 sleep 10s
 
-peer channel fetch newest -o orderer5.example.com:11050 -c ${CHANNEL_ID} --tls --cafile ${PROJECT_NAME}/crypto-config/ordererOrganizations/example.com/orderers/orderer5.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+peer channel fetch newest -o orderer5.example.com:11050 -c ${CHANNEL_ID} --tls --cafile ${PROJECT_PATH}/crypto-config/ordererOrganizations/example.com/orderers/orderer5.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
 
-peer channel fetch newest -o orderer4.example.com:10050 -c ${CHANNEL_ID} --tls --cafile ${PROJECT_NAME}/crypto-config/ordererOrganizations/example.com/orderers/orderer4.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+peer channel fetch newest -o orderer4.example.com:10050 -c ${CHANNEL_ID} --tls --cafile ${PROJECT_PATH}/crypto-config/ordererOrganizations/example.com/orderers/orderer4.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
