@@ -29,7 +29,7 @@ $ cd separate-orderers-per-channel
 
 #### 1.2 start fabric network
 
-we create a application called "channel2"
+we create an application channel called "channel2"
 
 ```bash
 $ cd separate-orderers-per-channel
